@@ -1,13 +1,51 @@
 package ru.netology.domain;
 
 public class Radio {
-    private int station = 0;
-    private int volume = 3;
+    private String radioName = "Конструктор";
+    private int station;
+    private short stationsQuantity = 10;
+    private int volume = 20;
 
-    /* Установка параметров */
+    /* Конструкторы
+     * --------------------------------------------------- */
+
+    public Radio() {
+    }
+
+    public Radio(int volume) {
+        if (volume > 100) {
+            return;
+        }
+        if (volume < 0) {
+            return;
+        }
+        this.volume = volume;
+    }
+
+    public Radio(short stationsQuantity) {
+        setStationsQuantity(stationsQuantity);
+    }
+
+    public Radio(String radioName, int station) {
+        this.radioName = radioName;
+        setStation(station);
+    }
+
+    /* Установка параметров
+     * --------------------------------------------------- */
+
+    public void setStationsQuantity(short stationsQuantity) {
+        if (stationsQuantity > 120) {
+            return;
+        }
+        if (stationsQuantity < 1) {
+            return;
+        }
+        this.stationsQuantity = stationsQuantity;
+    }
 
     public void setStation(int station) {
-        if (station > 9) {
+        if (station > stationsQuantity) {
             return;
         }
         if (station < 0) {
@@ -17,50 +55,47 @@ public class Radio {
     }
 
     public void setVolume(int volume) {
-        if (volume > 10) {
-            return;
-        }
-        if (volume < 0) {
-            return;
-        }
         this.volume = volume;
     }
 
-    /* Оперирование станциями */
+    /* Оперирование станциями
+     * --------------------------------------------------- */
 
     public void switchStationUp() {
-        if (station == 9) {
+        if (station == stationsQuantity) {
             setStation(0);
             return;
         }
-        setStation(station + 1);
+        setStation(++station);
     }
 
     public void switchStationDown() {
         if (station == 0) {
-            setStation(9);
+            setStation(stationsQuantity);
             return;
         }
-        setStation(station - 1);
+        setStation(--station);
     }
 
-    /* Регулировка громкости */
+    /* Регулировка громкости
+     * --------------------------------------------------- */
 
     public void increaseVolume() {
-        if (volume == 10) {
+        if (volume == 100) {
             return;
         }
-        setVolume(volume + 1);
+        setVolume(++volume);
     }
 
     public void decreaseVolume() {
         if (volume == 0) {
             return;
         }
-        setVolume(volume - 1);
+        setVolume(--volume);
     }
 
-    /* Getters */
+    /* Getters
+     * --------------------------------------------------- */
 
     public int getVolume() {
         return volume;
@@ -68,5 +103,9 @@ public class Radio {
 
     public int getStation() {
         return station;
+    }
+
+    public short getStationsQuantity() {
+        return stationsQuantity;
     }
 }
